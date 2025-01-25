@@ -5,8 +5,8 @@ on:
 		branches:
 			- main
 
-jobs: # 잡 (Jobs) : 워크플로우에서 실행되는 작업 단위
-	build-and-deploy: # 잡 이름
+jobs:
+	build-and-deploy:
 		runs-on: ubuntu-latest
 
 		steps:
@@ -14,7 +14,7 @@ jobs: # 잡 (Jobs) : 워크플로우에서 실행되는 작업 단위
 			- name: Checkout Repository
 			  uses: actions/checkout@v3
 
-			# 2. AWS CLI 자격 증명 설정
+			# 2. AWS CLI 자격증명 설정
 			- name: Configure AWS Credentials
 			  uses: aws-actions/configure-aws-credentials@v3
 			  with:
@@ -23,7 +23,7 @@ jobs: # 잡 (Jobs) : 워크플로우에서 실행되는 작업 단위
 				  aws-region: ap-northeast-2
 
 			# 3. AWS ECR Docker 로그인
-			- name: Login to Amazon ECR
+			- name: Docker Login to AWS ECR
 			  id: login-ecr
 			  uses: aws-actions/amazon-ecr-login@v2
 
