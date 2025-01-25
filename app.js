@@ -1,17 +1,12 @@
-const fs = require('fs');
 const dotenv = require("dotenv");
 dotenv.config();
 
+if (process.env.NODE_ENV === 'production') {
+    require('dotenv').config({ path: `./config/.env`});
+}
+
 const express = require('express');
 const app = express();
-
-const envFilePath = `.env.${process.env.NODE_ENV}`;
-
-console.log(process.env.NODE_ENV);
-
-if (fs.existsSync(envFilePath)) {
-    dotenv.config({ path: envFilePath });
-}
 
 const PORT = process.env.PORT || 8080;
 let isKeepAlive = false;
@@ -29,7 +24,7 @@ app.get('/api/healthcheck', (req, res, next) => {
     console.log('call healthcheck');
     return res
         .status(200)
-        .send('OK')
+        .send(`${PORT} OK`)
 })
 
 app.use('/api', (err, req, res, next) => {
